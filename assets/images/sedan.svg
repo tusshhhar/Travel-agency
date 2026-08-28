@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 250" width="100%" height="100%">
+  <defs>
+    <linearGradient id="sedanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+    <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="50%" stop-color="#334155" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    <linearGradient id="glassGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.7" />
+      <stop offset="100%" stop-color="#0284c7" stop-opacity="0.3" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  
+  <!-- Shadow -->
+  <ellipse cx="250" cy="215" rx="200" ry="14" fill="#000000" opacity="0.4" filter="url(#glow)" />
+  
+  <!-- Car Body Base -->
+  <path d="M 60 165 C 60 145 90 140 130 135 L 170 100 C 185 85 220 80 280 80 L 350 82 C 385 85 410 115 440 140 C 465 145 475 155 470 175 C 465 190 440 190 420 190 L 90 190 C 70 190 60 180 60 165 Z" fill="url(#bodyGrad)" stroke="#475569" stroke-width="2" />
+  
+  <!-- Cab Taxi Roof Top Sign -->
+  <rect x="220" y="60" width="70" height="20" rx="4" fill="url(#sedanGrad)" />
+  <text x="255" y="74" font-family="'Outfit', sans-serif" font-size="10" font-weight="bold" fill="#0b0f19" text-anchor="middle">TAXI</text>
+  <rect x="235" y="78" width="40" height="4" fill="#0f172a" />
+
+  <!-- Windows / Glass -->
+  <path d="M 175 102 L 245 102 L 245 135 L 138 135 Z" fill="url(#glassGrad)" stroke="#64748b" stroke-width="1.5" />
+  <path d="M 255 102 L 340 102 L 390 135 L 255 135 Z" fill="url(#glassGrad)" stroke="#64748b" stroke-width="1.5" />
+  
+  <!-- Side Line Accent -->
+  <path d="M 80 155 L 450 155" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round" />
+  
+  <!-- Headlights & Taillights -->
+  <path d="M 445 145 L 465 155 L 445 165 Z" fill="#38bdf8" filter="url(#glow)" />
+  <path d="M 62 150 L 68 152 L 64 165 Z" fill="#ef4444" />
+  
+  <!-- Wheels -->
+  <g transform="translate(130, 190)">
+    <circle cx="0" cy="0" r="30" fill="#0f172a" stroke="#475569" stroke-width="4" />
+    <circle cx="0" cy="0" r="18" fill="#334155" />
+    <circle cx="0" cy="0" r="8" fill="#f59e0b" />
+    <!-- Spokes -->
+    <line x1="-15" y1="0" x2="15" y2="0" stroke="#cbd5e1" stroke-width="2" />
+    <line x1="0" y1="-15" x2="0" y2="15" stroke="#cbd5e1" stroke-width="2" />
+  </g>
+  
+  <g transform="translate(370, 190)">
+    <circle cx="0" cy="0" r="30" fill="#0f172a" stroke="#475569" stroke-width="4" />
+    <circle cx="0" cy="0" r="18" fill="#334155" />
+    <circle cx="0" cy="0" r="8" fill="#f59e0b" />
+    <!-- Spokes -->
+    <line x1="-15" y1="0" x2="15" y2="0" stroke="#cbd5e1" stroke-width="2" />
+    <line x1="0" y1="-15" x2="0" y2="15" stroke="#cbd5e1" stroke-width="2" />
+  </g>
+  
+  <!-- Door Handles & Details -->
+  <rect x="220" y="142" width="16" height="4" rx="2" fill="#94a3b8" />
+  <rect x="300" y="142" width="16" height="4" rx="2" fill="#94a3b8" />
+</svg>

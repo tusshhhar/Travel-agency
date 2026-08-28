@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 250" width="100%" height="100%">
+  <defs>
+    <linearGradient id="innovaOld" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#334155" />
+      <stop offset="50%" stop-color="#475569" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+  </defs>
+  <ellipse cx="250" cy="215" rx="210" ry="14" fill="#000" opacity="0.4" />
+  <path d="M 50 160 C 50 135 75 130 110 125 L 145 75 C 165 58 200 52 270 52 L 375 52 C 410 55 435 85 460 115 C 480 128 485 142 480 168 C 475 190 445 190 420 190 L 80 190 C 60 190 50 175 50 160 Z" fill="url(#innovaOld)" stroke="#64748b" stroke-width="2" />
+  <path d="M 150 78 L 240 78 L 240 118 L 120 118 Z" fill="#38bdf8" opacity="0.6" stroke="#94a3b8" stroke-width="1.5" />
+  <path d="M 250 78 L 340 78 L 340 118 L 250 118 Z" fill="#38bdf8" opacity="0.6" stroke="#94a3b8" stroke-width="1.5" />
+  <path d="M 350 78 L 405 78 L 435 118 L 350 118 Z" fill="#38bdf8" opacity="0.6" stroke="#94a3b8" stroke-width="1.5" />
+  <path d="M 65 148 L 465 148" stroke="#f59e0b" stroke-width="3" stroke-linecap="round" />
+  
+  <g transform="translate(120, 188)">
+    <circle cx="0" cy="0" r="34" fill="#0f172a" stroke="#475569" stroke-width="4" />
+    <circle cx="0" cy="0" r="20" fill="#334155" />
+    <circle cx="0" cy="0" r="9" fill="#f59e0b" />
+  </g>
+  <g transform="translate(385, 188)">
+    <circle cx="0" cy="0" r="34" fill="#0f172a" stroke="#475569" stroke-width="4" />
+    <circle cx="0" cy="0" r="20" fill="#334155" />
+    <circle cx="0" cy="0" r="9" fill="#f59e0b" />
+  </g>
+</svg>

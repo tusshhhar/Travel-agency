@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 250" width="100%" height="100%">
+  <defs>
+    <linearGradient id="innovaGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#18181b" />
+      <stop offset="50%" stop-color="#27272a" />
+      <stop offset="100%" stop-color="#09090b" />
+    </linearGradient>
+    <linearGradient id="silverGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e2e8f0" />
+      <stop offset="50%" stop-color="#94a3b8" />
+      <stop offset="100%" stop-color="#cbd5e1" />
+    </linearGradient>
+  </defs>
+  <ellipse cx="250" cy="215" rx="215" ry="14" fill="#000" opacity="0.45" />
+  
+  <!-- Innova Crysta Muscular Body -->
+  <path d="M 45 160 C 45 130 75 125 105 120 L 140 70 C 160 52 200 48 270 48 L 385 48 C 420 52 445 85 470 115 C 485 125 490 140 485 168 C 480 190 450 190 425 190 L 75 190 C 55 190 45 175 45 160 Z" fill="url(#innovaGrad)" stroke="#52525b" stroke-width="2.5" />
+  
+  <!-- Front Aggressive Chrome Grille -->
+  <path d="M 470 120 L 485 140 L 478 170 L 460 170 Z" fill="url(#silverGrad)" />
+  <line x1="465" y1="130" x2="480" y2="135" stroke="#f59e0b" stroke-width="2" />
+  <line x1="462" y1="145" x2="482" y2="150" stroke="#f59e0b" stroke-width="2" />
+
+  <!-- Panoramic Windows -->
+  <path d="M 148 72 L 235 72 L 235 116 L 115 116 Z" fill="#38bdf8" opacity="0.6" stroke="#94a3b8" stroke-width="1.5" />
+  <path d="M 245 72 L 340 72 L 340 116 L 245 116 Z" fill="#38bdf8" opacity="0.6" stroke="#94a3b8" stroke-width="1.5" />
+  <path d="M 350 72 L 415 72 L 448 116 L 350 116 Z" fill="#38bdf8" opacity="0.6" stroke="#94a3b8" stroke-width="1.5" />
+  
+  <!-- Luxury Badge -->
+  <rect x="220" y="32" width="80" height="14" rx="3" fill="#f59e0b" />
+  <text x="260" y="42" font-family="'Outfit', sans-serif" font-size="8.5" font-weight="900" fill="#000" text-anchor="middle">CRYSTA 7+1</text>
+
+  <!-- Side Chrome Beltline -->
+  <path d="M 60 145 L 470 145" stroke="url(#silverGrad)" stroke-width="3.5" stroke-linecap="round" />
+
+  <!-- Dual Tone Diamond Cut Wheels -->
+  <g transform="translate(120, 188)">
+    <circle cx="0" cy="0" r="36" fill="#09090b" stroke="#3f3f46" stroke-width="5" />
+    <circle cx="0" cy="0" r="23" fill="#18181b" />
+    <circle cx="0" cy="0" r="11" fill="#f59e0b" />
+    <line x1="-18" y1="-18" x2="18" y2="18" stroke="#f8fafc" stroke-width="3" />
+    <line x1="18" y1="-18" x2="-18" y2="18" stroke="#f8fafc" stroke-width="3" />
+  </g>
+  <g transform="translate(390, 188)">
+    <circle cx="0" cy="0" r="36" fill="#09090b" stroke="#3f3f46" stroke-width="5" />
+    <circle cx="0" cy="0" r="23" fill="#18181b" />
+    <circle cx="0" cy="0" r="11" fill="#f59e0b" />
+    <line x1="-18" y1="-18" x2="18" y2="18" stroke="#f8fafc" stroke-width="3" />
+    <line x1="18" y1="-18" x2="-18" y2="18" stroke="#f8fafc" stroke-width="3" />
+  </g>
+</svg>

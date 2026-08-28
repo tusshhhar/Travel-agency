@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 250" width="100%" height="100%">
+  <defs>
+    <linearGradient id="premBody" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#090d16" />
+      <stop offset="50%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#fbbf24" />
+    </linearGradient>
+    <filter id="glowGold">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  
+  <ellipse cx="250" cy="215" rx="210" ry="12" fill="#000" opacity="0.5" />
+  
+  <!-- Sleek Aerodynamic Body -->
+  <path d="M 50 165 C 50 140 80 135 125 130 L 165 92 C 185 75 230 72 290 72 L 365 74 C 400 78 425 110 455 135 C 480 140 485 152 480 172 C 475 188 450 188 425 188 L 85 188 C 65 188 50 180 50 165 Z" fill="url(#premBody)" stroke="#475569" stroke-width="2" />
+  
+  <!-- Windows -->
+  <path d="M 170 94 L 245 94 L 245 128 L 132 128 Z" fill="#38bdf8" opacity="0.6" stroke="#94a3b8" stroke-width="1.5" />
+  <path d="M 255 94 L 355 94 L 405 128 L 255 128 Z" fill="#38bdf8" opacity="0.6" stroke="#94a3b8" stroke-width="1.5" />
+  
+  <!-- Luxury Chrome / Gold Trim Line -->
+  <path d="M 65 150 L 465 150" stroke="url(#goldGrad)" stroke-width="3" stroke-linecap="round" />
+  <rect x="230" y="55" width="60" height="15" rx="3" fill="#f59e0b" />
+  <text x="260" y="66" font-family="'Outfit', sans-serif" font-size="9" font-weight="bold" fill="#000" text-anchor="middle">PREMIUM</text>
+
+  <!-- Wheels Alloy Design -->
+  <g transform="translate(125, 188)">
+    <circle cx="0" cy="0" r="32" fill="#0f172a" stroke="#64748b" stroke-width="4" />
+    <circle cx="0" cy="0" r="20" fill="#1e293b" />
+    <circle cx="0" cy="0" r="9" fill="#f59e0b" filter="url(#glowGold)" />
+    <line x1="-16" y1="-16" x2="16" y2="16" stroke="#f1f5f9" stroke-width="2.5" />
+    <line x1="16" y1="-16" x2="-16" y2="16" stroke="#f1f5f9" stroke-width="2.5" />
+    <line x1="-20" y1="0" x2="20" y2="0" stroke="#f1f5f9" stroke-width="2.5" />
+  </g>
+  
+  <g transform="translate(385, 188)">
+    <circle cx="0" cy="0" r="32" fill="#0f172a" stroke="#64748b" stroke-width="4" />
+    <circle cx="0" cy="0" r="20" fill="#1e293b" />
+    <circle cx="0" cy="0" r="9" fill="#f59e0b" filter="url(#glowGold)" />
+    <line x1="-16" y1="-16" x2="16" y2="16" stroke="#f1f5f9" stroke-width="2.5" />
+    <line x1="16" y1="-16" x2="-16" y2="16" stroke="#f1f5f9" stroke-width="2.5" />
+    <line x1="-20" y1="0" x2="20" y2="0" stroke="#f1f5f9" stroke-width="2.5" />
+  </g>
+</svg>

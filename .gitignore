@@ -1,0 +1,9 @@
+# Environment & IDE
+.vscode/
+.idea/
+*.log
+.DS_Store
+Thumbs.db
+
+# Server temporary files
+error_log
