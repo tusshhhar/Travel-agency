@@ -23,14 +23,11 @@ define('CURRENCY_SYMBOL', '₹');
 define('CURRENCY_CODE', 'INR');
 
 // -------------------------------------------------------------
-// 2. Base Paths & Application URL
+// 2. Base Paths & Application URL (Universal Root-Relative)
 // -------------------------------------------------------------
-$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443)) ? "https://" : "http://";
-$host = $_SERVER['HTTP_HOST'] ?? 'localhost:8000';
-$scriptName = dirname($_SERVER['SCRIPT_NAME'] ?? '');
-$baseUrl = rtrim($protocol . $host . $scriptName, '/\\');
-// If inside /admin or /api, compute root base URL
-$baseUrl = preg_replace('/\/(admin|api)(\/.*)?$/', '', $baseUrl);
+$scriptDir = dirname($_SERVER['SCRIPT_NAME'] ?? '');
+$scriptDir = preg_replace('/\/(admin|api)(\/.*)?$/', '', $scriptDir);
+$baseUrl = rtrim($scriptDir, '/\\');
 define('BASE_URL', $baseUrl);
 
 // -------------------------------------------------------------
