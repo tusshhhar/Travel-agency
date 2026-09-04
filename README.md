@@ -1,7 +1,7 @@
-# Bishnoi Travels – Cab Booking & Travel Agency Website (PHP)
+# Jambho Haridwar Travels – Cab Booking & Travel Agency Website (PHP)
 
 **Document Version:** 1.0 (FRS Compliant)  
-**Business Name:** BISHNOI TRAVELS  
+**Business Name:** JAMBHO HARIDWAR TRAVELS
 **Proprietor / Manager:** ASHEESH BISHNOI  
 **Location:** D-Block, New Shivalik Nagar, Haridwar, Uttarakhand  
 **24×7 Helplines:** 9536200261 / 8449911315  

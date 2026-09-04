@@ -1,5 +1,5 @@
 <?php
-define('PAGE_TITLE', 'Booking Confirmed - Bishnoi Travels');
+define('PAGE_TITLE', 'Booking Confirmed - Jambho Haridwar Travels');
 require_once __DIR__ . '/includes/header.php';
 
 $bookingId = cleanInput($_GET['booking_id'] ?? '');
@@ -34,7 +34,7 @@ if (!$booking) {
 
         <h2 style="font-size: 2rem; color: #10b981; margin-bottom: 8px;">Booking Confirmed!</h2>
         <p style="font-size: 1rem; color: var(--text-muted); margin-bottom: 24px;">
-          Thank you, <strong><?php echo htmlspecialchars($booking['customer_name']); ?></strong>. Your cab booking with Bishnoi Travels has been successfully confirmed and scheduled.
+          Thank you, <strong><?php echo htmlspecialchars($booking['customer_name']); ?></strong>. Your cab booking with Jambho Haridwar Travels has been successfully confirmed and scheduled.
         </p>
 
         <!-- Booking ID Callout -->
@@ -60,7 +60,7 @@ if (!$booking) {
             📋 Trip & Payment Overview
           </h4>
           
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; font-size: 0.9rem;">
+          <div class="info-two-col">
             <div>
               <span style="color: var(--text-dim); display: block;">Pickup Location:</span>
               <strong><?php echo htmlspecialchars($booking['pickup_location']); ?></strong>
@@ -78,8 +78,8 @@ if (!$booking) {
               <strong><?php echo htmlspecialchars($booking['vehicle_name']); ?></strong>
             </div>
             <div>
-              <span style="color: var(--text-dim); display: block;">Total Paid:</span>
-              <strong style="color: var(--primary);">₹<?php echo number_format($booking['total_amount'], 2); ?> (PAID)</strong>
+              <span style="color: var(--text-dim); display: block;">Total Fare:</span>
+              <strong style="color: var(--primary);">₹<?php echo number_format($booking['total_amount'], 2); ?> (Pay on Trip)</strong>
             </div>
             <div>
               <span style="color: var(--text-dim); display: block;">Assigned Driver:</span>

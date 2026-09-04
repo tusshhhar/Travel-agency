@@ -71,7 +71,7 @@ $enquiries = $db->query("SELECT * FROM enquiries ORDER BY id DESC")->fetchAll();
               </td>
               <td>
                 <div style="display: flex; gap: 6px;">
-                  <a href="https://wa.me/91<?php echo htmlspecialchars($e['mobile']); ?>?text=Hello%20<?php echo urlencode($e['name']); ?>,%20this%20is%20Asheesh%20Bishnoi%20from%20Bishnoi%20Travels%20regarding%20your%20cab%20enquiry." target="_blank" class="btn btn-whatsapp btn-sm" style="padding: 4px 8px; font-size: 0.75rem;">
+                  <a href="https://wa.me/91<?php echo htmlspecialchars($e['mobile']); ?>?text=Hello%20<?php echo urlencode($e['name']); ?>,%20this%20is%20<?php echo urlencode(OWNER_NAME); ?>%20from%20<?php echo urlencode(BUSINESS_NAME); ?>%20regarding%20your%20cab%20enquiry." target="_blank" class="btn btn-whatsapp btn-sm" style="padding: 4px 8px; font-size: 0.75rem;">
                     💬 WhatsApp
                   </a>
                   <form action="<?php echo BASE_URL; ?>/admin/enquiries.php" method="POST" style="display: inline;">

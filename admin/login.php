@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       
       <div style="text-align: center; margin-bottom: 28px;">
         <h2 style="font-family: 'Outfit', sans-serif; font-size: 1.8rem; color: #fff;">
-          BISHNOI <span style="color: var(--primary);">TRAVELS</span>
+          JAMBHO HARIDWAR <span style="color: var(--primary);">TRAVELS</span>
         </h2>
         <p style="color: var(--text-dim); font-size: 0.85rem; margin-top: 4px;">Admin Control & Booking Management</p>
       </div>

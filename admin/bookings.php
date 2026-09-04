@@ -149,7 +149,7 @@ $drivers = $db->query("SELECT * FROM drivers WHERE is_active = 1")->fetchAll();
               <td><?php echo htmlspecialchars($b['vehicle_name']); ?></td>
               <td>
                 <strong>₹<?php echo number_format($b['total_amount'], 2); ?></strong>
-                <div style="font-size: 0.75rem; color: #34d399;">Paid: ₹<?php echo number_format($b['advance_paid'], 2); ?></div>
+                <div style="font-size: 0.75rem; color: #38bdf8;">Pay on Trip</div>
               </td>
               <td>
                 <?php echo getStatusBadge($b['booking_status']); ?>

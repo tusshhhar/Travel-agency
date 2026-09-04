@@ -1,5 +1,5 @@
 <?php
-define('PAGE_TITLE', 'About Us - Bishnoi Travels');
+define('PAGE_TITLE', 'About Us - Jambho Haridwar Travels');
 require_once __DIR__ . '/includes/header.php';
 ?>
 
@@ -7,17 +7,17 @@ require_once __DIR__ . '/includes/header.php';
   <div class="container">
     <div class="section-header">
       <div class="badge-pill">Our Heritage & Commitment</div>
-      <h2>About Bishnoi Travels</h2>
+      <h2>About Jambho Haridwar Travels</h2>
       <p>Delivering trusted 24-hour taxi and travel services across Haridwar, Uttarakhand, and throughout India with safety, comfort, and integrity.</p>
     </div>
 
-    <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center; margin-bottom: 60px;">
+    <div class="about-grid">
       <div>
         <h3 style="font-size: 1.8rem; margin-bottom: 16px; color: #fff;">
-          Welcome to <span style="color: var(--primary);">Bishnoi Travels</span>
+          Welcome to <span style="color: var(--primary);">Jambho Haridwar Travels</span>
         </h3>
         <p style="margin-bottom: 16px; font-size: 1rem;">
-          Founded and managed by <strong><?php echo OWNER_NAME; ?></strong> in the holy city of Haridwar, Bishnoi Travels has grown into one of Uttarakhand's most reputable cab agencies. Our mission is to transform outstation and local travel by delivering prompt 24×7 customer service, transparent per-kilometer pricing, and impeccably maintained vehicles.
+          Founded and managed by <strong><?php echo OWNER_NAME; ?></strong> in the holy city of Haridwar, Jambho Haridwar Travels has grown into one of Uttarakhand's most reputable cab agencies. Our mission is to transform outstation and local travel by delivering prompt 24×7 customer service, transparent per-kilometer pricing, and impeccably maintained vehicles.
         </p>
         <p style="margin-bottom: 20px; font-size: 1rem;">
           Whether assisting pilgrims embarking on the auspicious Chardham Yatra, ensuring corporate commuters reach Delhi Airport on time, or facilitating family holidays across Mussoorie, Nainital, and Rishikesh, we treat every traveler with authentic Himalayan warmth and professionalism.

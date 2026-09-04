@@ -1,5 +1,5 @@
 <?php
-define('PAGE_TITLE', 'Our Vehicle Fleet & Rates - Bishnoi Travels');
+define('PAGE_TITLE', 'Our Vehicle Fleet & Rates - Jambho Haridwar Travels');
 require_once __DIR__ . '/includes/header.php';
 
 $db = Database::getConnection();
@@ -11,7 +11,7 @@ $vehicles = $db->query("SELECT * FROM vehicles WHERE is_active = 1 ORDER BY per_
     <div class="section-header">
       <div class="badge-pill">Premium Maintained Vehicles</div>
       <h2>Our Modern Cab & Taxi Fleet</h2>
-      <p>Every vehicle in the Bishnoi Travels fleet undergoes regular mechanical inspections, interior sanitization, and is driven by background-verified chauffeurs.</p>
+      <p>Every vehicle in the Jambho Haridwar Travels fleet undergoes regular mechanical inspections, interior sanitization, and is driven by background-verified chauffeurs.</p>
     </div>
 
     <div class="fleet-grid">
@@ -19,7 +19,7 @@ $vehicles = $db->query("SELECT * FROM vehicles WHERE is_active = 1 ORDER BY per_
         <div class="fleet-card">
           <div class="fleet-image-wrap">
             <span class="fleet-category-tag"><?php echo htmlspecialchars($veh['category']); ?></span>
-            <img src="<?php echo BASE_URL . '/' . htmlspecialchars($veh['image_url']); ?>" alt="<?php echo htmlspecialchars($veh['name']); ?>" class="fleet-img">
+            <img src="<?php echo getVehicleImageUrl($veh['image_url']); ?>" alt="<?php echo htmlspecialchars($veh['name']); ?>" onerror="this.onerror=null;this.src='<?php echo BASE_URL; ?>/assets/images/sedan.svg';" class="fleet-img">
           </div>
           <div class="fleet-card-body">
             <h3><?php echo htmlspecialchars($veh['name']); ?></h3>

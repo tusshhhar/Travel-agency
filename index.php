@@ -17,7 +17,7 @@ $vehicles = $db->query("SELECT * FROM vehicles WHERE is_active = 1 ORDER BY per_
           <span>Haridwar's Most Trusted Cab Agency</span>
         </div>
         <h1 class="hero-title">
-          Travel Anywhere In India with <span>Bishnoi Travels</span>
+          Travel Anywhere In India with <span>JAMBHO HARIDWAR TRAVELS</span>
         </h1>
         <p class="hero-desc">
           24×7 Premium & Affordable Outstation, Airport Transfer, Chardham Yatra & Local Cab Services from Haridwar. Verified drivers, neat & clean AC vehicles, transparent fares with zero hidden charges.
@@ -72,11 +72,11 @@ $vehicles = $db->query("SELECT * FROM vehicles WHERE is_active = 1 ORDER BY per_
           <div class="form-grid">
             <div class="form-group">
               <label class="form-label" for="pickup_location">📍 Pickup Location *</label>
-              <input type="text" name="pickup_location" id="pickup_location" class="form-control" placeholder="e.g. Haridwar Railway Station" value="Haridwar" required>
+              <input type="text" name="pickup_location" id="pickup_location" class="form-control" placeholder="e.g. Haridwar Railway Station / Hotel" required>
             </div>
             <div class="form-group">
               <label class="form-label" for="drop_location">📍 Drop Location *</label>
-              <input type="text" name="drop_location" id="drop_location" class="form-control" placeholder="e.g. IGI Airport, Delhi" value="Delhi Airport" required>
+              <input type="text" name="drop_location" id="drop_location" class="form-control" placeholder="e.g. IGI Airport Delhi / Rishikesh" required>
             </div>
           </div>
 
@@ -150,7 +150,7 @@ $vehicles = $db->query("SELECT * FROM vehicles WHERE is_active = 1 ORDER BY per_
           </div>
 
           <!-- Dynamic Live Fare Breakdown Preview (FR-008, FR-009) -->
-          <div class="fare-estimate-box" id="live_fare_display">
+          <div class="fare-estimate-box" id="live_fare_display" style="display: none;">
             <h4>
               <span>Estimated Fare Breakdown</span>
               <span class="badge-pill" style="font-size: 0.75rem; margin:0;">Transparent Pricing</span>
@@ -190,7 +190,7 @@ $vehicles = $db->query("SELECT * FROM vehicles WHERE is_active = 1 ORDER BY per_
           </div>
 
           <button type="submit" class="btn btn-primary btn-lg btn-block">
-            <span>Proceed to Booking Summary & Payment ➔</span>
+            <span>Review Summary & Confirm Booking ➔</span>
           </button>
         </form>
       </div>
@@ -204,7 +204,7 @@ $vehicles = $db->query("SELECT * FROM vehicles WHERE is_active = 1 ORDER BY per_
     <div class="section-header">
       <div class="badge-pill">Comprehensive Travel Solutions</div>
       <h2>Our Premium Cab Services</h2>
-      <p>Whether you need a quick airport transfer or a multi-day Himalayan pilgrimage, Bishnoi Travels has you covered 24 hours a day.</p>
+      <p>Whether you need a quick airport transfer or a multi-day Himalayan pilgrimage, Jambho Haridwar Travels has you covered 24 hours a day.</p>
     </div>
 
     <div class="services-grid">
@@ -261,7 +261,7 @@ $vehicles = $db->query("SELECT * FROM vehicles WHERE is_active = 1 ORDER BY per_
         <div class="fleet-card">
           <div class="fleet-image-wrap">
             <span class="fleet-category-tag"><?php echo htmlspecialchars($veh['category']); ?></span>
-            <img src="<?php echo BASE_URL . '/' . htmlspecialchars($veh['image_url']); ?>" alt="<?php echo htmlspecialchars($veh['name']); ?>" class="fleet-img">
+            <img src="<?php echo getVehicleImageUrl($veh['image_url']); ?>" alt="<?php echo htmlspecialchars($veh['name']); ?>" onerror="this.onerror=null;this.src='<?php echo BASE_URL; ?>/assets/images/sedan.svg';" class="fleet-img">
           </div>
           <div class="fleet-card-body">
             <h3><?php echo htmlspecialchars($veh['name']); ?></h3>
@@ -297,8 +297,8 @@ $vehicles = $db->query("SELECT * FROM vehicles WHERE is_active = 1 ORDER BY per_
 <section class="section section-bg">
   <div class="container">
     <div class="section-header">
-      <div class="badge-pill">Bishnoi Travels Promise</div>
-      <h2>Why Travel With Bishnoi Travels?</h2>
+      <div class="badge-pill">Jambho Haridwar Travels Promise</div>
+      <h2>Why Travel With Jambho Haridwar Travels?</h2>
       <p>We pride ourselves on 100% punctuality, hospitality, clean vehicles, and transparent pricing.</p>
     </div>
 
@@ -336,7 +336,7 @@ $vehicles = $db->query("SELECT * FROM vehicles WHERE is_active = 1 ORDER BY per_
     <div class="section-header">
       <div class="badge-pill">Real Customer Experiences</div>
       <h2>What Our Travelers Say</h2>
-      <p>Thousands of satisfied pilgrims, business travelers, and families trust Bishnoi Travels.</p>
+      <p>Thousands of satisfied pilgrims, business travelers, and families trust Jambho Haridwar Travels.</p>
     </div>
 
     <div class="reviews-grid">

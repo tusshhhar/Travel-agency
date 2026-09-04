@@ -68,7 +68,7 @@ if (!empty($bookingId) && !empty($mobile)) {
             </div>
           </div>
 
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; font-size: 0.9rem; margin-bottom: 24px;">
+          <div class="info-two-col" style="margin-bottom: 24px; font-size: 0.9rem;">
             <div>
               <span style="color: var(--text-dim); display: block;">Route:</span>
               <strong><?php echo htmlspecialchars($booking['pickup_location']); ?> ➔ <?php echo htmlspecialchars($booking['drop_location']); ?></strong>
@@ -82,8 +82,8 @@ if (!empty($bookingId) && !empty($mobile)) {
               <strong><?php echo htmlspecialchars($booking['vehicle_name']); ?></strong>
             </div>
             <div>
-              <span style="color: var(--text-dim); display: block;">Paid Amount:</span>
-              <strong>₹<?php echo number_format($booking['advance_paid'], 2); ?></strong>
+              <span style="color: var(--text-dim); display: block;">Payment:</span>
+              <strong style="color: #34d399;">Pay to Driver on Trip (₹<?php echo number_format($booking['total_amount'], 2); ?>)</strong>
             </div>
             <div>
               <span style="color: var(--text-dim); display: block;">Driver Assigned:</span>
@@ -95,12 +95,12 @@ if (!empty($bookingId) && !empty($mobile)) {
             </div>
           </div>
 
-          <!-- Cancellation / Refund Section if eligible (FR-028, FR-029) -->
-          <?php if (!in_array($booking['booking_status'], ['Cancelled', 'Trip Completed', 'Refund Completed'])): ?>
+          <!-- Cancellation Section -->
+          <?php if (!in_array($booking['booking_status'], ['Cancelled', 'Trip Completed'])): ?>
             <div style="background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.25); border-radius: var(--radius-md); padding: 20px; margin-top: 24px;">
-              <h4 style="font-size: 1rem; color: #f87171; margin-bottom: 8px;">Cancel Booking & Request Refund</h4>
+              <h4 style="font-size: 1rem; color: #f87171; margin-bottom: 8px;">Cancel Booking</h4>
               <p style="font-size: 0.85rem; margin-bottom: 14px;">
-                Free 100% refund if cancelled at least 12 hours prior to journey. If cancelled within 12 hours, standard cancellation fee of 15% applies.
+                Free instant cancellation. Let us know if your plan has changed or if you need to reschedule.
               </p>
               
               <form id="cancelForm" onsubmit="handleCancel(event)">
@@ -111,7 +111,7 @@ if (!empty($bookingId) && !empty($mobile)) {
                   <input type="text" name="reason" id="cancel_reason" class="form-control" placeholder="e.g. Plan changed / Travel rescheduled">
                 </div>
                 <button type="submit" class="btn btn-secondary btn-sm" style="border-color: #ef4444; color: #f87171;">
-                  <span>❌ Confirm Cancellation & Refund</span>
+                  <span>❌ Confirm Cancellation</span>
                 </button>
               </form>
               <div id="cancel_alert" style="margin-top: 14px; display: none;"></div>

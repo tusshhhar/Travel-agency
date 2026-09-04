@@ -67,7 +67,7 @@ try {
     if ($refundAmount > 0) {
         WhatsAppHelper::sendRefundNotification($booking, $refundAmount);
     } else {
-        $cancelMsg = "⚠️ *Bishnoi Travels – Booking Cancelled*\n\n"
+        $cancelMsg = "⚠️ *" . BUSINESS_NAME . " – Booking Cancelled*\n\n"
                    . "Your Booking *{$bookingId}* for " . date('d-M-Y', strtotime($booking['journey_date'])) . " has been successfully cancelled.\n\n"
                    . "If you need a cab again, we are always here to serve you! 24x7 Helpline: " . PHONE_PRIMARY;
         WhatsAppHelper::sendMessage($booking['customer_mobile'], $cancelMsg, $bookingId, 'booking_cancelled');

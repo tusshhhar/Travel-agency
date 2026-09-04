@@ -9,7 +9,7 @@ $totalBookings = (int)$db->query("SELECT COUNT(*) FROM bookings")->fetchColumn()
 $todayBookings = (int)$db->query("SELECT COUNT(*) FROM bookings WHERE DATE(created_at) = CURRENT_DATE")->fetchColumn();
 $confirmedBookings = (int)$db->query("SELECT COUNT(*) FROM bookings WHERE booking_status IN ('Confirmed', 'Driver Assigned', 'Driver On The Way', 'Trip Started', 'Trip Completed')")->fetchColumn();
 $cancelledBookings = (int)$db->query("SELECT COUNT(*) FROM bookings WHERE booking_status = 'Cancelled'")->fetchColumn();
-$totalRevenue = (float)$db->query("SELECT SUM(advance_paid) FROM bookings WHERE advance_paid > 0")->fetchColumn();
+$totalBookingsValue = (float)$db->query("SELECT SUM(total_amount) FROM bookings WHERE booking_status != 'Cancelled'")->fetchColumn();
 $newEnquiries = (int)$db->query("SELECT COUNT(*) FROM enquiries WHERE status = 'New'")->fetchColumn();
 
 // Fetch Recent Bookings
@@ -39,8 +39,8 @@ $drivers = $db->query("SELECT * FROM drivers WHERE is_active = 1")->fetchAll();
 
   <div class="stat-card">
     <div class="stat-info">
-      <h5>Total Revenue</h5>
-      <h3 style="color: var(--accent-emerald);">₹<?php echo number_format($totalRevenue, 2); ?></h3>
+      <h5>Total Bookings Value</h5>
+      <h3 style="color: var(--accent-emerald);">₹<?php echo number_format($totalBookingsValue, 2); ?></h3>
     </div>
     <div class="stat-icon" style="color: var(--accent-emerald); background: rgba(16, 185, 129, 0.12);">💰</div>
   </div>

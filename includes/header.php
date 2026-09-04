@@ -11,14 +11,22 @@ $currentPage = basename($_SERVER['PHP_SELF']);
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><?php echo defined('PAGE_TITLE') ? PAGE_TITLE . ' | ' . BUSINESS_NAME : BUSINESS_NAME . ' - 24x7 Cab & Travel Services Haridwar'; ?></title>
-  <meta name="description" content="Bishnoi Travels Haridwar - Best 24x7 Outstation & Local Cab Service in Haridwar, Rishikesh, Dehradun, Delhi, Chardham Yatra. Clean AC Cabs & Experienced Drivers. Call: 9536200261">
-  <meta name="keywords" content="Bishnoi Travels, Cab in Haridwar, Taxi Service Haridwar, Chardham Yatra Cab, Haridwar to Delhi Cab, Innova Crysta Rental, Asheesh Bishnoi">
+  <meta name="description" content="Jambho Haridwar Travels - Best 24x7 Outstation & Local Cab Service in Haridwar, Rishikesh, Dehradun, Delhi, Chardham Yatra. Clean AC Cabs & Experienced Drivers. Call: 9536200261">
+  <meta name="keywords" content="Jambho Haridwar Travels, Cab in Haridwar, Taxi Service Haridwar, Chardham Yatra Cab, Haridwar to Delhi Cab, Innova Crysta Rental">
   
   <!-- CSS Stylesheets -->
-  <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/style.css">
+  <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/style.css?v=<?php echo time(); ?>">
   
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="<?php echo BASE_URL; ?>/assets/images/logo.svg">
+
+  <!-- Theme Script (Instant LocalStorage check to prevent flash) -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('bt_theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    })();
+  </script>
 </head>
 <body>
 
@@ -48,7 +56,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
     <div class="container navbar">
       <a href="<?php echo BASE_URL; ?>/index.php" class="brand-logo">
         <div class="brand-text">
-          <h1>BISHNOI <span>TRAVELS</span></h1>
+          <h1>JAMBHO HARIDWAR <span>TRAVELS</span></h1>
           <small>24×7 ALL INDIA CAB SERVICES</small>
         </div>
       </a>
@@ -62,10 +70,15 @@ $currentPage = basename($_SERVER['PHP_SELF']);
         <li><a href="<?php echo BASE_URL; ?>/about.php" class="nav-link <?php echo $currentPage === 'about.php' ? 'active' : ''; ?>">About Us</a></li>
         <li><a href="<?php echo BASE_URL; ?>/track_booking.php" class="nav-link <?php echo $currentPage === 'track_booking.php' ? 'active' : ''; ?>">Track / Cancel</a></li>
         <li><a href="<?php echo BASE_URL; ?>/contact.php" class="nav-link <?php echo $currentPage === 'contact.php' ? 'active' : ''; ?>">Contact</a></li>
-        <li><a href="<?php echo BASE_URL; ?>/admin/login.php" class="nav-link">Admin</a></li>
       </ul>
 
       <div class="nav-actions">
+        <!-- Light / Dark Mode Toggle Button -->
+        <button type="button" class="theme-toggle-btn" id="theme_toggle_btn" aria-label="Toggle Light / Dark Mode" title="Switch Theme">
+          <span class="theme-icon-sun">☀️</span>
+          <span class="theme-icon-moon">🌙</span>
+        </button>
+
         <a href="tel:<?php echo PHONE_PRIMARY; ?>" class="btn btn-call btn-sm">
           <span>📞 Call Now</span>
         </a>

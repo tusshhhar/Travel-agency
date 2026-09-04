@@ -154,6 +154,16 @@ $payment = $pStmt->fetch();
       font-weight: 600;
       cursor: pointer;
     }
+    @media (max-width: 640px) {
+      body { padding: 12px; }
+      .invoice-card { padding: 20px 14px; border-radius: 8px; }
+      .invoice-header { flex-direction: column; gap: 16px; align-items: flex-start; }
+      .invoice-ref { text-align: left; }
+      .grid-2 { grid-template-columns: 1fr; gap: 14px; }
+      .invoice-table th, .invoice-table td { padding: 8px 6px; font-size: 11px; }
+      .print-btn-bar { flex-direction: column; gap: 10px; align-items: stretch; text-align: center; }
+      .print-btn-bar .btn-print { width: 100%; }
+    }
     @media print {
       body { background: #fff; padding: 0; }
       .invoice-card { box-shadow: none; border: none; padding: 0; }
@@ -164,7 +174,7 @@ $payment = $pStmt->fetch();
 <body>
 
   <div class="print-btn-bar">
-    <a href="<?php echo BASE_URL; ?>/index.php" style="color: #64748b; text-decoration: none; font-size: 14px;">← Back to Bishnoi Travels</a>
+    <a href="<?php echo BASE_URL; ?>/index.php" style="color: #64748b; text-decoration: none; font-size: 14px;">← Back to Jambho Haridwar Travels</a>
     <button class="btn-print" onclick="window.print()">🖨️ Print / Save as PDF</button>
   </div>
 
@@ -172,7 +182,7 @@ $payment = $pStmt->fetch();
     
     <div class="invoice-header">
       <div>
-        <div class="brand-title">BISHNOI <span>TRAVELS</span></div>
+        <div class="brand-title">JAMBHO HARIDWAR <span>TRAVELS</span></div>
         <div class="brand-meta">
           <strong>Proprietor:</strong> <?php echo OWNER_NAME; ?><br>
           <strong>Address:</strong> <?php echo BUSINESS_ADDRESS; ?><br>
@@ -228,11 +238,13 @@ $payment = $pStmt->fetch();
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Base Cab Fare</td>
-          <td>Standard</td>
-          <td style="text-align: right;">₹<?php echo number_format($booking['base_fare'], 2); ?></td>
-        </tr>
+        <?php if ($booking['base_fare'] > 0): ?>
+          <tr>
+            <td>Base Cab Fare</td>
+            <td>Standard</td>
+            <td style="text-align: right;">₹<?php echo number_format($booking['base_fare'], 2); ?></td>
+          </tr>
+        <?php endif; ?>
         <tr>
           <td>Distance Charges (~<?php echo $booking['estimated_distance']; ?> KM)</td>
           <td>Distance Based</td>
@@ -268,12 +280,12 @@ $payment = $pStmt->fetch();
         <span>₹<?php echo number_format($booking['total_amount'], 2); ?></span>
       </div>
       <div class="total-row">
-        <span>Amount Paid (Online / UPI):</span>
-        <span style="color: #059669; font-weight: bold;">₹<?php echo number_format($booking['advance_paid'] ?: $booking['total_amount'], 2); ?></span>
+        <span>Payment Method:</span>
+        <span style="color: #059669; font-weight: bold;">Pay to Driver (Cash / UPI on Trip)</span>
       </div>
       <div class="total-row grand-total">
-        <span>Balance Due to Driver:</span>
-        <span>₹<?php echo number_format($booking['balance_amount'], 2); ?></span>
+        <span>Total Payable on Trip:</span>
+        <span>₹<?php echo number_format($booking['total_amount'], 2); ?></span>
       </div>
     </div>
 
@@ -289,7 +301,7 @@ $payment = $pStmt->fetch();
         <strong>Customer Signature:</strong> _______________________
       </div>
       <div style="text-align: right;">
-        <strong>For BISHNOI TRAVELS</strong><br><br>
+        <strong>For JAMBHO HARIDWAR TRAVELS</strong><br><br>
         <em>Authorized Signatory</em>
       </div>
     </div>

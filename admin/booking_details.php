@@ -108,35 +108,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['send_custom_whatsapp'
       <?php endif; ?>
     </div>
 
-    <!-- Payment & Gateway Logs Card -->
+    <!-- Payment & Billing Information -->
     <div class="card-table" style="padding: 24px; margin-bottom: 24px;">
-      <h3 style="margin-bottom: 16px; color: #fff; font-size: 1.15rem;">💳 Payment Transactions</h3>
-      <?php if (empty($payments)): ?>
-        <p style="color: var(--text-dim); font-size: 0.9rem;">No recorded payments for this booking yet.</p>
-      <?php else: ?>
-        <table class="data-table">
-          <thead>
-            <tr>
-              <th>Gateway</th>
-              <th>Transaction ID</th>
-              <th>Amount</th>
-              <th>Status</th>
-              <th>Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php foreach ($payments as $p): ?>
-              <tr>
-                <td><?php echo htmlspecialchars($p['gateway']); ?></td>
-                <td><code style="color: var(--primary);"><?php echo htmlspecialchars($p['transaction_id']); ?></code></td>
-                <td><strong>₹<?php echo number_format($p['amount'], 2); ?></strong></td>
-                <td><?php echo getStatusBadge($p['payment_status']); ?></td>
-                <td><?php echo date('d-M-Y H:i', strtotime($p['created_at'])); ?></td>
-              </tr>
-            <?php endforeach; ?>
-          </tbody>
-        </table>
-      <?php endif; ?>
+      <h3 style="margin-bottom: 14px; color: #fff; font-size: 1.15rem;">💵 Payment & Fare Details</h3>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; font-size: 0.9rem;">
+        <div>
+          <span style="color: var(--text-dim); display: block;">Total Fare:</span>
+          <strong style="font-size: 1.1rem; color: var(--primary);">₹<?php echo number_format($b['total_amount'], 2); ?></strong>
+        </div>
+        <div>
+          <span style="color: var(--text-dim); display: block;">Payment Mode:</span>
+          <strong style="color: #34d399;">Pay on Trip (Cash / UPI to Driver)</strong>
+        </div>
+      </div>
     </div>
 
     <!-- WhatsApp Logs Card -->

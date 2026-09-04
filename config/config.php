@@ -11,14 +11,14 @@ if (session_status() === PHP_SESSION_NONE) {
 // -------------------------------------------------------------
 // 1. Business & Company Profile (As per FRS)
 // -------------------------------------------------------------
-define('BUSINESS_NAME', 'BISHNOI TRAVELS');
+define('BUSINESS_NAME', 'JAMBHO HARIDWAR TRAVELS');
 define('OWNER_NAME', 'ASHEESH BISHNOI');
 define('BUSINESS_TAGLINE', 'All Over India 24 Hours Services Available');
 define('BUSINESS_ADDRESS', 'D-Block, New Shivalik Nagar, Haridwar, Uttarakhand - 249403');
 define('PHONE_PRIMARY', '9536200261');
 define('PHONE_SECONDARY', '8449911315');
 define('WHATSAPP_NUMBER', '919536200261'); // International format without +
-define('SUPPORT_EMAIL', 'info@bishnoitravels.com');
+define('SUPPORT_EMAIL', 'info@jambhoharidwartravels.com');
 define('CURRENCY_SYMBOL', '₹');
 define('CURRENCY_CODE', 'INR');
 

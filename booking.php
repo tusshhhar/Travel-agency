@@ -13,7 +13,7 @@ $prefilledDrop = cleanInput($_GET['drop'] ?? 'Delhi');
   <div class="container">
     <div class="section-header" style="margin-bottom: 30px;">
       <div class="badge-pill">Online Booking Engine</div>
-      <h2>Book Your Cab with Bishnoi Travels</h2>
+      <h2>Book Your Cab with Jambho Haridwar Travels</h2>
       <p>Fill in your journey details below to calculate real-time estimated fare and proceed to secure booking confirmation.</p>
     </div>
 
@@ -140,7 +140,7 @@ $prefilledDrop = cleanInput($_GET['drop'] ?? 'Delhi');
           </div>
 
           <!-- Live Fare Estimation Box (FR-008, FR-009) -->
-          <div class="fare-estimate-box" id="live_fare_display">
+          <div class="fare-estimate-box" id="live_fare_display" style="display: <?php echo (!empty($prefilledPickup) && !empty($prefilledDrop)) ? 'block' : 'none'; ?>;">
             <h4>
               <span>Live Fare Estimate</span>
               <span class="badge-pill" style="font-size: 0.75rem; margin:0;">Dynamic Pricing Engine</span>
@@ -152,10 +152,6 @@ $prefilledDrop = cleanInput($_GET['drop'] ?? 'Delhi');
             <div class="fare-row">
               <span>Per KM Rate:</span>
               <span id="est_rate_txt">₹11/KM</span>
-            </div>
-            <div class="fare-row">
-              <span>Base Fare:</span>
-              <span id="base_fare_txt">₹1,200</span>
             </div>
             <div class="fare-row">
               <span>Distance Charge:</span>

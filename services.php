@@ -1,5 +1,5 @@
 <?php
-define('PAGE_TITLE', 'Our Cab Services - Bishnoi Travels');
+define('PAGE_TITLE', 'Our Cab Services - Jambho Haridwar Travels');
 require_once __DIR__ . '/includes/header.php';
 ?>
 
@@ -8,7 +8,7 @@ require_once __DIR__ . '/includes/header.php';
     <div class="section-header">
       <div class="badge-pill">24×7 Cab Services</div>
       <h2>Comprehensive Travel & Cab Solutions</h2>
-      <p>Bishnoi Travels offers an extensive range of tailored transportation services for pilgrims, corporate clients, vacationers, and emergency travelers across India.</p>
+      <p>Jambho Haridwar Travels offers an extensive range of tailored transportation services for pilgrims, corporate clients, vacationers, and emergency travelers across India.</p>
     </div>
 
     <div class="services-grid">
@@ -43,7 +43,7 @@ require_once __DIR__ . '/includes/header.php';
       <div class="service-card">
         <div class="service-icon">⛰️</div>
         <h3>Chardham Yatra Pilgrimage</h3>
-        <p>Customized 9-day to 12-day packages for Yamunotri, Gangotri, Kedarnath, and Badrinath with experienced mountain drivers in Innova Crysta & Tempo Travellers.</p>
+        <p>Customized 9-day to 12-day packages for Yamunotri, Gangotri, Kedarnath, and Badrinath with experienced mountain drivers in Innova Crysta, Ertiga, Swift dzire, Glanza.</p>
         <div style="margin-top: 20px;">
           <a href="<?php echo BASE_URL; ?>/contact.php" class="btn btn-primary btn-sm">Get Tour Quote ➔</a>
         </div>

@@ -1,5 +1,5 @@
 <?php
-define('PAGE_TITLE', 'Contact Us & Enquiries - Bishnoi Travels');
+define('PAGE_TITLE', 'Contact Us & Enquiries - Jambho Haridwar Travels');
 require_once __DIR__ . '/includes/header.php';
 require_once __DIR__ . '/includes/whatsapp_helper.php';
 
@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->execute([$name, $mobile, $email, $from, $to, $date, $passengers, $message]);
 
             // Trigger automated WhatsApp confirmation to customer (FR-031)
-            $replyMsg = "🙏 *Namaste {$name}!* Thank you for your enquiry with *Bishnoi Travels*.\n\n"
+            $replyMsg = "🙏 *Namaste {$name}!* Thank you for your enquiry with *Jambho Haridwar Travels*.\n\n"
                       . "We have received your request for travel from *{$from}* to *{$to}* on *" . date('d-M-Y', strtotime($date)) . "*.\n"
                       . "Our travel coordinator (*" . OWNER_NAME . "*) will call you shortly with the best customized quote.\n\n"
                       . "For immediate booking, call: " . PHONE_PRIMARY;
@@ -44,11 +44,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <div class="container">
     <div class="section-header">
       <div class="badge-pill">24×7 Direct Assistance</div>
-      <h2>Get in Touch with Bishnoi Travels</h2>
+      <h2>Get in Touch with Jambho Haridwar Travels</h2>
       <p>Have a custom itinerary, Chardham Yatra query, or need an urgent cab? Call, WhatsApp, or drop your enquiry below.</p>
     </div>
 
-    <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; margin-bottom: 50px;">
+    <div class="contact-grid">
       
       <!-- Contact Info Cards -->
       <div>

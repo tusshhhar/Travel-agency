@@ -23,6 +23,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $desc = cleanInput($_POST['description'] ?? '');
         $img = cleanInput($_POST['image_url'] ?? 'assets/images/sedan.svg');
 
+        // Handle direct image file upload from user's computer
+        if (isset($_FILES['vehicle_image']) && !empty($_FILES['vehicle_image']['name'])) {
+            if ($_FILES['vehicle_image']['error'] !== UPLOAD_ERR_OK) {
+                $errCode = $_FILES['vehicle_image']['error'];
+                $errMsg = "Image upload error ({$errCode}).";
+                if ($errCode === UPLOAD_ERR_INI_SIZE || $errCode === UPLOAD_ERR_FORM_SIZE) {
+                    $errMsg = "The chosen image is too large. Please upload an image under 50MB.";
+                }
+                setFlashMessage('error', $errMsg);
+                header('Location: ' . BASE_URL . '/admin/vehicles.php');
+                exit;
+            }
+
+            $fileTmp = $_FILES['vehicle_image']['tmp_name'];
+            $origName = $_FILES['vehicle_image']['name'];
+            $ext = strtolower(pathinfo($origName, PATHINFO_EXTENSION));
+            $allowedExts = ['jpg', 'jpeg', 'png', 'webp', 'svg', 'gif'];
+
+            if (in_array($ext, $allowedExts)) {
+                $uploadDir = __DIR__ . '/../assets/images/uploads/';
+                if (!is_dir($uploadDir)) {
+                    mkdir($uploadDir, 0777, true);
+                }
+                $safeName = 'cab_' . time() . '_' . bin2hex(random_bytes(4)) . '.' . $ext;
+                $targetFile = $uploadDir . $safeName;
+                if (move_uploaded_file($fileTmp, $targetFile)) {
+                    $img = 'assets/images/uploads/' . $safeName;
+                } else {
+                    setFlashMessage('error', 'Failed to save uploaded photo to folder. Please check file permissions.');
+                    header('Location: ' . BASE_URL . '/admin/vehicles.php');
+                    exit;
+                }
+            } else {
+                setFlashMessage('error', 'Invalid image format (.' . htmlspecialchars($ext) . '). Please upload JPG, PNG, WEBP, or SVG.');
+                header('Location: ' . BASE_URL . '/admin/vehicles.php');
+                exit;
+            }
+        }
+
         if ($id > 0) {
             $stmt = $db->prepare("UPDATE vehicles SET name = ?, category = ?, model_example = ?, seating_capacity = ?, luggage_capacity = ?, ac_type = ?, per_km_rate = ?, base_fare = ?, min_km = ?, driver_allowance_per_day = ?, description = ?, image_url = ? WHERE id = ?");
             $stmt->execute([$name, $category, $model, $seats, $luggage, $ac, $rate, $base, $minKm, $allowance, $desc, $img, $id]);
@@ -76,7 +115,7 @@ $vehicles = $db->query("SELECT * FROM vehicles ORDER BY id ASC")->fetchAll();
           <tr>
             <td>
               <div style="display: flex; align-items: center; gap: 12px;">
-                <img src="<?php echo BASE_URL . '/' . htmlspecialchars($v['image_url']); ?>" alt="" style="width: 50px; height: 30px; object-fit: contain;">
+                <img src="<?php echo getVehicleImageUrl($v['image_url']); ?>" alt="" onerror="this.onerror=null;this.src='<?php echo BASE_URL; ?>/assets/images/sedan.svg';" style="width: 50px; height: 30px; object-fit: contain; background: #0f172a; border-radius: 4px; padding: 2px;">
                 <div>
                   <strong><?php echo htmlspecialchars($v['name']); ?></strong>
                   <div style="font-size: 0.75rem; color: var(--text-dim);"><?php echo htmlspecialchars($v['model_example']); ?></div>
@@ -125,7 +164,7 @@ $vehicles = $db->query("SELECT * FROM vehicles ORDER BY id ASC")->fetchAll();
       <h3 style="color: #fff; margin: 0;" id="vehicleModalTitle">Add New Vehicle</h3>
       <button type="button" onclick="closeModal('vehicleModal')" style="background:none; border:none; color:#fff; font-size:1.5rem; cursor:pointer;">&times;</button>
     </div>
-    <form action="<?php echo BASE_URL; ?>/admin/vehicles.php" method="POST">
+    <form action="<?php echo BASE_URL; ?>/admin/vehicles.php" method="POST" enctype="multipart/form-data">
       <input type="hidden" name="action" value="save_vehicle">
       <input type="hidden" name="id" id="v_id" value="0">
 
@@ -153,8 +192,17 @@ $vehicles = $db->query("SELECT * FROM vehicles ORDER BY id ASC")->fetchAll();
           <input type="text" name="model_example" id="v_model" class="form-control" placeholder="e.g. Maruti Dzire, Toyota Etios">
         </div>
         <div class="form-group">
-          <label class="form-label">Vector Image URL</label>
-          <input type="text" name="image_url" id="v_image" class="form-control" value="assets/images/sedan.svg">
+          <label class="form-label">Cab Image (Browse & Upload Photo)</label>
+          <div style="display: flex; gap: 10px; align-items: center;">
+            <div style="flex: 1;">
+              <input type="file" name="vehicle_image" id="v_image_file" class="form-control" accept="image/*" onchange="previewVehicleImage(this)" style="padding: 7px 10px; font-size: 0.85rem; cursor: pointer;">
+            </div>
+            <div id="v_img_preview_box" style="width: 54px; height: 40px; border-radius: 6px; border: 1px solid var(--border-color); background: #0f172a; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; padding: 2px;" title="Image Preview">
+              <img id="v_img_preview" src="<?php echo BASE_URL; ?>/assets/images/sedan.svg" alt="Preview" onerror="this.onerror=null;this.src='<?php echo BASE_URL; ?>/assets/images/sedan.svg';" style="max-width: 100%; max-height: 100%; object-fit: contain;">
+            </div>
+          </div>
+          <input type="hidden" name="image_url" id="v_image" value="assets/images/sedan.svg">
+          <small style="color: var(--text-dim); font-size: 0.75rem; margin-top: 5px; display: block;">Supports JPG, PNG, WEBP, or SVG from your device.</small>
         </div>
       </div>
 
@@ -202,10 +250,21 @@ $vehicles = $db->query("SELECT * FROM vehicles ORDER BY id ASC")->fetchAll();
 </div>
 
 <script>
+function previewVehicleImage(input) {
+  if (input.files && input.files[0]) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      document.getElementById('v_img_preview').src = e.target.result;
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
 function openVehicleModal() {
   document.getElementById('vehicleModalTitle').textContent = 'Add New Vehicle';
   document.getElementById('v_id').value = '0';
   document.getElementById('v_name').value = '';
+  document.getElementById('v_category').value = 'Sedan';
   document.getElementById('v_model').value = '';
   document.getElementById('v_rate').value = '12';
   document.getElementById('v_base').value = '1200';
@@ -214,6 +273,9 @@ function openVehicleModal() {
   document.getElementById('v_luggage').value = '2';
   document.getElementById('v_allowance').value = '300';
   document.getElementById('v_desc').value = '';
+  document.getElementById('v_image').value = 'assets/images/sedan.svg';
+  document.getElementById('v_image_file').value = '';
+  document.getElementById('v_img_preview').src = '<?php echo BASE_URL; ?>/assets/images/sedan.svg';
   document.getElementById('vehicleModal').classList.add('open');
 }
 
@@ -224,6 +286,16 @@ function editVehicle(v) {
   document.getElementById('v_category').value = v.category;
   document.getElementById('v_model').value = v.model_example;
   document.getElementById('v_image').value = v.image_url;
+  document.getElementById('v_image_file').value = '';
+  
+  let imgSrc = v.image_url || '';
+  if (!imgSrc) {
+    document.getElementById('v_img_preview').src = '<?php echo BASE_URL; ?>/assets/images/sedan.svg';
+  } else if (/^https?:\/\//i.test(imgSrc)) {
+    document.getElementById('v_img_preview').src = imgSrc;
+  } else {
+    document.getElementById('v_img_preview').src = '<?php echo BASE_URL; ?>/' + imgSrc.replace(/^\//, '');
+  }
   document.getElementById('v_rate').value = v.per_km_rate;
   document.getElementById('v_base').value = v.base_fare;
   document.getElementById('v_minkm').value = v.min_km;

@@ -77,9 +77,9 @@ class WhatsAppHelper {
         $phone1 = PHONE_PRIMARY;
         $phone2 = PHONE_SECONDARY;
 
-        $msg = "🚕 *Bishnoi Travels – Booking Confirmed!*\n\n"
+        $msg = "🚕 *" . BUSINESS_NAME . " – Booking Confirmed!*\n\n"
              . "Dear *{$customerName}*,\n"
-             . "Thank you for booking with Bishnoi Travels.\n\n"
+             . "Thank you for booking with " . BUSINESS_NAME . ".\n\n"
              . "📋 *Booking Details:*\n"
              . "• *Booking ID:* {$bookingId}\n"
              . "• *Pickup:* {$pickup}\n"
@@ -92,7 +92,7 @@ class WhatsAppHelper {
              . "🚖 *Driver Details:* Will be assigned shortly and shared via WhatsApp.\n\n"
              . "📞 *24×7 Assistance:* {$phone1} / {$phone2}\n"
              . "📍 *Address:* " . BUSINESS_ADDRESS . "\n\n"
-             . "Have a safe and pleasant journey with Bishnoi Travels! 🙏";
+             . "Have a safe and pleasant journey with " . BUSINESS_NAME . "! 🙏";
 
         return self::sendMessage($booking['customer_mobile'], $msg, $bookingId, 'booking_confirmation');
     }
@@ -104,7 +104,7 @@ class WhatsAppHelper {
         $bookingId = $booking['booking_id'];
         $retryUrl = BASE_URL . "/payment.php?booking_id=" . urlencode($bookingId);
         
-        $msg = "⚠️ *Bishnoi Travels – Payment Incomplete*\n\n"
+        $msg = "⚠️ *" . BUSINESS_NAME . " – Payment Incomplete*\n\n"
              . "Dear *{$booking['customer_name']}*,\n"
              . "Your payment for Booking *{$bookingId}* could not be completed.\n\n"
              . "To confirm your cab, please retry using the link below:\n"
@@ -121,7 +121,7 @@ class WhatsAppHelper {
         $bookingId = $booking['booking_id'];
         $amountFmt = formatCurrency($refundAmount);
         
-        $msg = "💳 *Bishnoi Travels – Refund Initiated*\n\n"
+        $msg = "💳 *" . BUSINESS_NAME . " – Refund Initiated*\n\n"
              . "Dear *{$booking['customer_name']}*,\n"
              . "A refund of *{$amountFmt}* has been initiated for Booking *{$bookingId}*.\n"
              . "It will be credited back to your original payment source within 3-5 business days.\n\n"
@@ -139,7 +139,7 @@ class WhatsAppHelper {
             ? "• *Driver:* {$booking['assigned_driver_name']} ({$booking['assigned_driver_mobile']})\n• *Cab No:* {$booking['assigned_vehicle_no']}\n"
             : "• *Driver:* Driver is being assigned.\n";
 
-        $msg = "🔔 *Bishnoi Travels – Trip Reminder 🚕*\n\n"
+        $msg = "🔔 *" . BUSINESS_NAME . " – Trip Reminder 🚕*\n\n"
              . "Dear *{$booking['customer_name']}*,\n"
              . "Your cab journey is scheduled for tomorrow:\n\n"
              . "• *Booking ID:* {$bookingId}\n"
@@ -158,7 +158,7 @@ class WhatsAppHelper {
     public static function sendDriverAssignedNotification(array $booking): array {
         $bookingId = $booking['booking_id'];
         
-        $msg = "🚕 *Bishnoi Travels – Driver Assigned!*\n\n"
+        $msg = "🚕 *" . BUSINESS_NAME . " – Driver Assigned!*\n\n"
              . "Dear *{$booking['customer_name']}*,\n"
              . "Your driver has been assigned for Booking *{$bookingId}*:\n\n"
              . "👤 *Driver Name:* {$booking['assigned_driver_name']}\n"
@@ -185,19 +185,19 @@ class WhatsAppHelper {
 
         // Keyword Matching (FRS FR-016 / FR-020)
         if (in_array($text, ['hi', 'hello', 'hey', 'start', 'menu', 'namaste'])) {
-            $response = "🚕 *Welcome to Bishnoi Travels, Haridwar!* 🙏\n"
+            $response = "🚕 *Welcome to " . BUSINESS_NAME . ", Haridwar!* 🙏\n"
                       . "All Over India 24 Hours Cab Services Available.\n\n"
                       . "How can we assist you today?\n"
                       . "1️⃣ *Book a Cab*\n"
                       . "2️⃣ *Check Fare / Rates*\n"
                       . "3️⃣ *Check Existing Booking Status*\n"
-                      . "4️⃣ *Talk to Support / Asheesh Bishnoi*\n"
+                      . "4️⃣ *Talk to Support / " . OWNER_NAME . "*\n"
                       . "5️⃣ *Chardham & Outstation Tours*\n\n"
                       . "Reply with *1*, *2*, *3*, *4*, or *5* to proceed.";
         }
         elseif ($text === '1' || str_contains($text, 'book') || str_contains($text, 'cab')) {
             $bookingUrl = BASE_URL . "/booking.php";
-            $response = "🚖 *Book a Cab with Bishnoi Travels*\n\n"
+            $response = "🚖 *Book a Cab with " . BUSINESS_NAME . "*\n\n"
                       . "You can book instantly online in 2 minutes with live fare estimation:\n"
                       . "👉 {$bookingUrl}\n\n"
                       . "Or simply reply here with:\n"
@@ -208,7 +208,7 @@ class WhatsAppHelper {
                       . "👤 *Passengers:*";
         }
         elseif ($text === '2' || str_contains($text, 'fare') || str_contains($text, 'price') || str_contains($text, 'rate')) {
-            $response = "🏷️ *Bishnoi Travels – Popular One-Way & Outstation Fares:*\n\n"
+            $response = "🏷️ *" . BUSINESS_NAME . " – Popular One-Way & Outstation Fares:*\n\n"
                       . "🚕 *Haridwar ➔ Delhi / IGI Airport:* Starts ₹3,499\n"
                       . "🚕 *Haridwar ➔ Dehradun / Airport:* Starts ₹1,499\n"
                       . "🚕 *Haridwar ➔ Rishikesh:* Starts ₹899\n"
@@ -246,7 +246,7 @@ class WhatsAppHelper {
             }
         }
         elseif ($text === '4' || str_contains($text, 'support') || str_contains($text, 'contact') || str_contains($text, 'call')) {
-            $response = "📞 *Bishnoi Travels 24×7 Direct Support*\n\n"
+            $response = "📞 *" . BUSINESS_NAME . " 24×7 Direct Support*\n\n"
                       . "👤 *Owner / Manager:* " . OWNER_NAME . "\n"
                       . "📱 *Phone:* " . PHONE_PRIMARY . " / " . PHONE_SECONDARY . "\n"
                       . "📍 *Office:* " . BUSINESS_ADDRESS . "\n"
@@ -254,18 +254,18 @@ class WhatsAppHelper {
                       . "We are ready to assist you anytime!";
         }
         elseif ($text === '5' || str_contains($text, 'chardham') || str_contains($text, 'tour')) {
-            $response = "⛰️ *Bishnoi Travels Chardham & Uttarakhand Tour Packages*\n\n"
+            $response = "⛰️ *" . BUSINESS_NAME . " Chardham & Uttarakhand Tour Packages*\n\n"
                       . "Special customized packages available for:\n"
                       . "• Kedarnath & Badrinath Do Dham Yatra\n"
                       . "• Complete 4 Dham Yatra (Yamunotri, Gangotri, Kedarnath, Badrinath)\n"
                       . "• Mussoorie - Dhanaulti - Rishikesh Tour\n"
                       . "• Nainital - Jim Corbett Tour\n\n"
                       . "Experienced hill drivers, sanitized AC vehicles, pushback seats & 24x7 support.\n"
-                      . "Call Asheesh Bishnoi directly for package quotes: " . PHONE_PRIMARY;
+                      . "Call " . OWNER_NAME . " directly for package quotes: " . PHONE_PRIMARY;
         }
         else {
             // Fallback Menu
-            $response = "Thank you for contacting *Bishnoi Travels*! 🚕\n\n"
+            $response = "Thank you for contacting *" . BUSINESS_NAME . "*! 🚕\n\n"
                       . "We provide 24x7 all India cab service from Haridwar.\n"
                       . "• Reply *1* to Book a Cab\n"
                       . "• Reply *2* for Fare Details\n"

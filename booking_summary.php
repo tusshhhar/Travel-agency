@@ -30,7 +30,19 @@ if (empty($pickup) || empty($drop) || empty($journeyDate) || empty($customerName
 
 // Calculate Accurate Fare
 $distance = estimateDistance($pickup, $drop);
-$fare = calculateFare($vehicleId, $tripType, $distance, $pickupTime);
+$days = 1;
+if ($tripType === 'Round Trip' && !empty($returnDate) && !empty($journeyDate)) {
+    try {
+        $d1 = new DateTime($journeyDate);
+        $d2 = new DateTime($returnDate);
+        if ($d2 >= $d1) {
+            $days = max(1, $d1->diff($d2)->days + 1);
+        }
+    } catch (Exception $e) {
+        $days = 1;
+    }
+}
+$fare = calculateFare($vehicleId, $tripType, $distance, $pickupTime, $days);
 
 $db = Database::getConnection();
 
@@ -48,7 +60,7 @@ if (!$customerId) {
 // Generate Unique Booking ID (FR-012)
 $bookingId = generateBookingId();
 
-// Insert Booking in 'Payment Pending' state
+// Insert Booking in 'Confirmed' state (Direct Booking / Pay on Trip)
 $bStmt = $db->prepare("INSERT INTO bookings (
     booking_id, customer_id, customer_name, customer_mobile, customer_email,
     trip_type, pickup_location, drop_location, journey_date, pickup_time,
@@ -64,16 +76,34 @@ $bStmt->execute([
     $returnDate, $returnTime, $vehicleId, $fare['vehicle_name'], $passengers,
     $flightTrainNo, $specialReq, $fare['estimated_distance'], $fare['base_fare'],
     $fare['distance_charge'], $fare['driver_allowance'], $fare['night_charge'], $fare['toll_tax_charge'],
-    $fare['total_amount'], 0, $fare['total_amount'], 'Payment Pending'
+    $fare['total_amount'], 0, $fare['total_amount'], 'Confirmed'
 ]);
+
+// Dispatch automated WhatsApp notification
+require_once __DIR__ . '/includes/whatsapp_helper.php';
+$bookingDetailsForMsg = [
+    'booking_id' => $bookingId,
+    'customer_name' => $customerName,
+    'customer_mobile' => $customerMobile,
+    'pickup_location' => $pickup,
+    'drop_location' => $drop,
+    'journey_date' => $journeyDate,
+    'pickup_time' => $pickupTime,
+    'vehicle_name' => $fare['vehicle_name'],
+    'total_amount' => $fare['total_amount'],
+    'advance_paid' => 0,
+    'assigned_driver_name' => 'To be assigned',
+    'assigned_driver_mobile' => PHONE_PRIMARY
+];
+WhatsAppHelper::sendBookingConfirmation($bookingDetailsForMsg);
 ?>
 
 <section class="section" style="padding-top: 40px;">
   <div class="container">
     <div class="section-header" style="margin-bottom: 30px;">
-      <div class="badge-pill">Step 2 of 3 • Review Booking</div>
-      <h2>Booking Summary & Fare Review</h2>
-      <p>Please verify your journey details below before proceeding to secure online payment.</p>
+      <div class="badge-pill">Step 2 of 2 • Review & Confirm</div>
+      <h2>Booking Summary & Confirmation</h2>
+      <p>Please verify your journey details below and click Confirm Booking. Pay directly to the driver via Cash or UPI on your trip.</p>
     </div>
 
     <div style="max-width: 820px; margin: 0 auto;">
@@ -85,12 +115,12 @@ $bStmt->execute([
             <h3 style="font-size: 1.5rem; color: var(--primary); margin: 0;"><?php echo htmlspecialchars($bookingId); ?></h3>
           </div>
           <div>
-            <?php echo getStatusBadge('Payment Pending'); ?>
+            <?php echo getStatusBadge('Confirmed'); ?>
           </div>
         </div>
 
         <!-- Summary Grid -->
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 30px;">
+        <div class="summary-details-grid">
           <div style="background: var(--bg-secondary); padding: 20px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
             <h4 style="font-size: 1rem; color: var(--primary); margin-bottom: 12px;">🚖 Journey Route</h4>
             <p style="margin-bottom: 6px;"><strong>Trip Type:</strong> <?php echo htmlspecialchars($tripType); ?></p>
@@ -123,10 +153,12 @@ $bStmt->execute([
             <span>Itemized Fare Breakdown</span>
             <span style="font-size: 0.85rem; color: var(--text-dim);">Zero Hidden Charges</span>
           </h4>
-          <div class="fare-row">
-            <span>Base Fare:</span>
-            <span>₹<?php echo number_format($fare['base_fare'], 2); ?></span>
-          </div>
+          <?php if (!empty($fare['base_fare']) && $fare['base_fare'] > 0): ?>
+            <div class="fare-row">
+              <span>Base Fare:</span>
+              <span>₹<?php echo number_format($fare['base_fare'], 2); ?></span>
+            </div>
+          <?php endif; ?>
           <div class="fare-row">
             <span>Distance Charges (~<?php echo $fare['billable_distance']; ?> KM @ ₹<?php echo $fare['per_km_rate']; ?>/km):</span>
             <span>₹<?php echo number_format($fare['distance_charge'], 2); ?></span>
@@ -150,21 +182,24 @@ $bStmt->execute([
             </div>
           <?php endif; ?>
           <div class="fare-row total-row">
-            <span>Total Payable Amount:</span>
+            <span>Total Estimated Fare:</span>
             <strong style="font-size: 1.5rem; color: var(--primary);">₹<?php echo number_format($fare['total_amount'], 2); ?></strong>
+          </div>
+          <div style="font-size: 0.85rem; color: #34d399; margin-top: 6px; text-align: right;">
+            Payment Mode: Pay to Driver (Cash / UPI on Trip)
           </div>
         </div>
 
         <div style="background: rgba(37, 211, 102, 0.08); border: 1px solid rgba(37, 211, 102, 0.25); border-radius: var(--radius-md); padding: 16px; margin-bottom: 30px; display: flex; align-items: center; gap: 14px;">
           <span style="font-size: 2rem;">💬</span>
           <p style="margin: 0; font-size: 0.88rem; color: #e2e8f0;">
-            <strong>WhatsApp Automation Active:</strong> Upon payment completion, you will instantly receive your booking voucher, driver details, and invoice on WhatsApp at <strong>+91 <?php echo htmlspecialchars($customerMobile); ?></strong>.
+            <strong>WhatsApp Automation Active:</strong> Booking details and your trip reference have been recorded. You will receive direct driver updates on WhatsApp at <strong>+91 <?php echo htmlspecialchars($customerMobile); ?></strong>. No advance payment required!
           </p>
         </div>
 
         <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-          <a href="<?php echo BASE_URL; ?>/payment.php?booking_id=<?php echo urlencode($bookingId); ?>" class="btn btn-primary btn-lg" style="flex: 2;">
-            <span>💳 Pay Online & Confirm Booking ➔</span>
+          <a href="<?php echo BASE_URL; ?>/booking_confirmation.php?booking_id=<?php echo urlencode($bookingId); ?>" class="btn btn-primary btn-lg" style="flex: 2;">
+            <span>✅ Confirm Booking (Pay on Trip) ➔</span>
           </a>
           <a href="<?php echo BASE_URL; ?>/booking.php" class="btn btn-secondary btn-lg" style="flex: 1;">
             <span>Edit Details</span>

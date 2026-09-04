@@ -1,7 +1,7 @@
 @echo off
-title Bishnoi Travels - Local Server
+title Jambho Haridwar Travels - Local Server
 echo ====================================================
-echo Starting Bishnoi Travels Local Development Server...
+echo Starting Jambho Haridwar Travels Local Development Server...
 echo ====================================================
 echo.
 echo Customer Portal: http://localhost:8000

@@ -39,6 +39,16 @@ function formatCurrency(float|int $amount): string {
     return CURRENCY_SYMBOL . ' ' . number_format((float)$amount, 2);
 }
 
+function getVehicleImageUrl(?string $img): string {
+    if (empty($img)) {
+        return BASE_URL . '/assets/images/sedan.svg';
+    }
+    if (preg_match('/^https?:\/\//i', $img)) {
+        return $img;
+    }
+    return BASE_URL . '/' . ltrim($img, '/');
+}
+
 function getFareSetting(string $key, $default = null) {
     try {
         $db = Database::getConnection();
@@ -96,6 +106,7 @@ function estimateDistance(string $pickup, string $drop): float {
     }
     
     // Fallback based on text heuristics
+    if (str_contains($p, 'sightseeing') || str_contains($d, 'sightseeing') || str_contains($d, 'local') || str_contains($p, 'local')) return 80.0;
     if (str_contains($p, 'delhi') || str_contains($d, 'delhi')) return 230.0;
     if (str_contains($p, 'dehradun') || str_contains($d, 'dehradun')) return 55.0;
     if (str_contains($p, 'rishikesh') || str_contains($d, 'rishikesh')) return 30.0;
@@ -125,25 +136,24 @@ function calculateFare(int $vehicleId, string $tripType, float $distanceKm, stri
     
     // Distance Adjustment based on Trip Type
     $billableDistance = $distanceKm;
-    $multiplier = 1;
+    $driverAllowance = 0.0;
     
     if ($tripType === 'Round Trip') {
-        $multiplier = 2;
         $billableDistance = max($distanceKm * 2, $minKm * $days);
         $driverAllowance = $driverAllowancePerDay * max(1, $days);
     } elseif ($tripType === 'Local') {
         // Local 8hr/80km package logic
         $billableDistance = max(80, $distanceKm);
-        $driverAllowance = 0;
+        $driverAllowance = 0.0;
     } elseif ($tripType === 'Airport Transfer') {
         $billableDistance = max(40, $distanceKm);
-        $driverAllowance = 0;
+        $driverAllowance = 0.0;
     } else { // One Way
-        $billableDistance = max($distanceKm, $minKm);
-        $driverAllowance = 0;
+        $billableDistance = $distanceKm;
+        $driverAllowance = 0.0;
     }
     
-    $distanceCharge = $billableDistance * $perKmRate;
+    $distanceCharge = round($billableDistance * $perKmRate, 2);
     
     // Check Night Charge (10:00 PM to 06:00 AM)
     $nightCharge = 0.0;
@@ -169,7 +179,8 @@ function calculateFare(int $vehicleId, string $tripType, float $distanceKm, stri
     $tollPer100Km = (float)getFareSetting('toll_tax_estimated_rate', 200);
     $tollTaxCharge = ($billableDistance >= 100) ? round(($billableDistance / 100) * $tollPer100Km) : 0;
     
-    $totalAmount = $baseFare + $distanceCharge + $driverAllowance + $nightCharge + $tollTaxCharge;
+    // Pure distance-based fare total
+    $totalAmount = $distanceCharge + $driverAllowance + $nightCharge + $tollTaxCharge;
     
     // Minimum advance payment calculation (default 25%)
     $advancePercentage = (float)getFareSetting('advance_payment_percentage', 25);
@@ -179,7 +190,7 @@ function calculateFare(int $vehicleId, string $tripType, float $distanceKm, stri
         'vehicle_id' => $vehicle['id'],
         'vehicle_name' => $vehicle['name'],
         'per_km_rate' => $perKmRate,
-        'base_fare' => $baseFare,
+        'base_fare' => 0.0,
         'estimated_distance' => $distanceKm,
         'billable_distance' => $billableDistance,
         'distance_charge' => $distanceCharge,

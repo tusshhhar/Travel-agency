@@ -273,8 +273,54 @@ body.admin-body {
   box-shadow: 0 20px 60px rgba(0,0,0,0.7);
 }
 
+.admin-mobile-toggle {
+  display: none;
+  background: var(--admin-card);
+  border: 1px solid var(--admin-border);
+  color: var(--primary);
+  font-size: 1.3rem;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
 @media (max-width: 900px) {
+  .admin-mobile-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
   .admin-sidebar {
-    display: none;
+    position: fixed;
+    top: 0;
+    left: -280px;
+    height: 100vh;
+    z-index: 9999;
+    transition: left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 0 40px rgba(0,0,0,0.8);
+    display: flex;
+  }
+  .admin-sidebar.active {
+    left: 0;
+  }
+  .admin-content {
+    padding: 18px 14px;
+  }
+  .admin-topbar {
+    padding: 14px;
+  }
+  .admin-title {
+    font-size: 1.15rem;
+  }
+  .kpi-grid {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)) !important;
+    gap: 12px !important;
+  }
+  .admin-card {
+    padding: 16px !important;
+  }
+  div[style*="grid-template-columns: 2fr 1fr"],
+  div[style*="grid-template-columns: 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
   }
 }

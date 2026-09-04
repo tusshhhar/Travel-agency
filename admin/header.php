@@ -22,7 +22,7 @@ $currentAdminPage = basename($_SERVER['PHP_SELF']);
   <!-- Admin Sidebar -->
   <aside class="admin-sidebar">
     <div class="sidebar-header">
-      <h2>BISHNOI <span>TRAVELS</span></h2>
+      <h2>JAMBHO HARIDWAR <span>TRAVELS</span></h2>
       <small>Admin Control Center</small>
     </div>
 
@@ -95,8 +95,11 @@ $currentAdminPage = basename($_SERVER['PHP_SELF']);
   <!-- Admin Main Body Area -->
   <main class="admin-main">
     <header class="admin-topbar">
-      <div class="admin-title">
-        <?php echo defined('ADMIN_PAGE_TITLE') ? ADMIN_PAGE_TITLE : 'Dashboard'; ?>
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <button type="button" class="admin-mobile-toggle" onclick="document.querySelector('.admin-sidebar').classList.toggle('active')" aria-label="Toggle Navigation">☰</button>
+        <div class="admin-title">
+          <?php echo defined('ADMIN_PAGE_TITLE') ? ADMIN_PAGE_TITLE : 'Dashboard'; ?>
+        </div>
       </div>
       <div class="admin-user-menu">
         <span class="pulse-dot"></span>

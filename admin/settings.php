@@ -47,11 +47,10 @@ require_once __DIR__ . '/header.php';
     
     <div style="display: flex; flex-direction: column; gap: 16px; font-size: 0.85rem;">
       <div style="background: var(--admin-sidebar); padding: 12px; border-radius: 8px;">
-        <strong style="color: var(--primary);">Razorpay Payment Gateway:</strong>
+        <strong style="color: var(--primary);">Online Payment Gateway:</strong>
         <div style="margin-top: 4px; color: var(--text-muted);">
-          Key ID: <code><?php echo RAZORPAY_KEY_ID; ?></code><br>
-          Sandbox Simulator: <span style="color: #34d399;">Active (Offline testing enabled)</span><br>
-          Webhook URL: <code><?php echo BASE_URL; ?>/api/razorpay_webhook.php</code>
+          Status: <span style="color: #f59e0b; font-weight: 600;">Disabled (Direct Pay on Trip mode active)</span><br>
+          Note: Customers pay the driver directly via Cash or UPI on journey completion. Can be re-enabled whenever needed.
         </div>
       </div>
 

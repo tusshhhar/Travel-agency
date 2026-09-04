@@ -4,7 +4,7 @@
       <div class="footer-grid">
         <div class="footer-col">
           <div class="brand-text" style="margin-bottom: 16px;">
-            <h2 style="font-size: 1.5rem; color: #fff;">BISHNOI <span style="color: var(--primary);">TRAVELS</span></h2>
+            <h2 style="font-size: 1.5rem; color: #fff;">JAMBHO HARIDWAR <span style="color: var(--primary);">TRAVELS</span></h2>
             <small style="color: var(--text-dim); letter-spacing: 1px;">24×7 CAB & TRAVEL SERVICES</small>
           </div>
           <p style="margin-bottom: 16px; font-size: 0.9rem;">
@@ -23,7 +23,7 @@
             <li><a href="<?php echo BASE_URL; ?>/services.php">Our Cab Services</a></li>
             <li><a href="<?php echo BASE_URL; ?>/fleet.php">Vehicle Fleet & Rates</a></li>
             <li><a href="<?php echo BASE_URL; ?>/track_booking.php">Track Booking Status</a></li>
-            <li><a href="<?php echo BASE_URL; ?>/about.php">About Bishnoi Travels</a></li>
+            <li><a href="<?php echo BASE_URL; ?>/about.php">About Jambho Haridwar Travels</a></li>
             <li><a href="<?php echo BASE_URL; ?>/contact.php">Contact & Enquiries</a></li>
           </ul>
         </div>
@@ -71,7 +71,7 @@
 
   <!-- Floating WhatsApp Interactive Widget (FR-015 to FR-020) -->
   <div class="whatsapp-widget-bubble">
-    <button class="whatsapp-trigger-btn" id="whatsapp_widget_btn" title="Chat with Bishnoi Travels on WhatsApp" aria-label="Open WhatsApp Chat">
+    <button class="whatsapp-trigger-btn" id="whatsapp_widget_btn" title="Chat with Jambho Haridwar Travels on WhatsApp" aria-label="Open WhatsApp Chat">
       <span>💬</span>
       <span class="whatsapp-online-badge"></span>
     </button>
@@ -110,6 +110,6 @@
   </div>
 
   <!-- Main JavaScript File -->
-  <script src="<?php echo BASE_URL; ?>/assets/js/main.js"></script>
+  <script src="<?php echo BASE_URL; ?>/assets/js/main.js?v=<?php echo time(); ?>"></script>
 </body>
 </html>
